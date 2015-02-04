@@ -3,6 +3,7 @@ package dojo
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
 import dojo.CheckoutCalculator._
+import dojo.Data._
 
 // Apple £0.30   4 for £1.00
 // Beans £0.50   

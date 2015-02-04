@@ -1,11 +1,24 @@
 package dojo
 
-sealed trait Item { val cost: Int }
-case object Apple extends Item { val cost: Int = 30 }
-case object Beans extends Item { val cost: Int = 50 }
-case object Coke extends Item { val cost: Int = 180 }
-case object Deodorant extends Item { val cost: Int = 250 }
-case object Egg extends Item { val cost: Int = 120 }
+object Data {
+
+  val Apple = Item(30)
+  val Beans = Item(50)
+  val Coke = Item(180)
+  val Deodorant = Item(250)
+  val Egg = Item(120)
+
+  val AllDiscounts = {
+    val appleDiscount = DiscountGroup(Map(Apple -> 4), 20)
+    val deodorantDiscount = DiscountGroup(Map(Deodorant -> 2), 50)
+    val eggDiscount = DiscountGroup(Map(Egg -> 3), 60)
+    val cokeBeanDiscount = DiscountGroup(Map(Coke -> 1, Beans -> 1), 30)
+    Seq(appleDiscount, deodorantDiscount, cokeBeanDiscount, eggDiscount)
+  }
+
+}
+
+case class Item(cost: Int)
 
 case class Basket(items: Map[Item, Int])
 
@@ -27,18 +40,12 @@ case class DiscountGroup(items: Map[Item, Int], discountAmount: Int) {
 
 object CheckoutCalculator {
 
+  import Data._
+  
   /**
    * Calculate total checkout price for a collection of items
    */
   def total(items: Item*): Int = items.map(_.cost).sum - discount(items)
-
-  private val AllDiscounts = {
-    val appleDiscount = DiscountGroup(Map(Apple -> 4), 20)
-    val deodorantDiscount = DiscountGroup(Map(Deodorant -> 2), 50)
-    val eggDiscount = DiscountGroup(Map(Egg -> 3), 60)
-    val cokeBeanDiscount = DiscountGroup(Map(Coke -> 1, Beans -> 1), 30)
-    Seq(appleDiscount, deodorantDiscount, cokeBeanDiscount, eggDiscount)
-  }
 
   private def getDiscounts(basket: Basket): Seq[DiscountGroup] = {
     for (discount ← AllDiscounts if discount.applies(basket))
