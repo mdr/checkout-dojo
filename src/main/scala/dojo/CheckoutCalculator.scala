@@ -9,14 +9,12 @@ case object Deodorant extends Item
 object CheckoutCalculator {
 
   def total(items: Item*): Int = items.map(rawPrice).sum - discount(items)
-  
+
   def discount(items: Seq[Item]): Int = {
-    val itemCounts = items.groupBy {identity}.mapValues {x => x.length}
-    if (itemCounts.getOrElse(Apple, 0) >= 4) {
-      return 20
-    } else {
-      return 0
-    }
+    val itemCounts = items.groupBy { identity }.mapValues { x ⇒ x.length }
+    val appleCounts = itemCounts.getOrElse(Apple, 0)
+    val appleDiscount = 20 * (appleCounts / 4)
+    appleDiscount
   }
 
   def rawPrice(item: Item): Int = item match {

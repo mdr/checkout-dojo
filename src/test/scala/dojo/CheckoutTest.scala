@@ -16,17 +16,29 @@ class CheckoutTest extends FlatSpec with ShouldMatchers {
     total(Apple) should equal(30)
 
   }
-  
+
   "Checkout two items" should "cost the correct amount" in {
-    
+
     total(Apple, Beans) should equal(80)
-    
+
   }
 
   "Checking out four apples" should "apply a discount" in {
-    
+
     total(Apple, Apple, Apple, Apple) should equal(100)
-    
+
+  }
+
+  "Checking out 13 apples" should "apply three discounts" in {
+
+    total(Apple, Apple, Apple, Apple, Apple, Apple, Apple, Apple, Apple, Apple, Apple, Apple, Apple) should equal(330)
+
+  }
+
+  "Checking out 5 deodorants apples" should "apply two discounts" in {
+
+    total(Deodorant, Deodorant, Deodorant, Deodorant, Deodorant) should equal(1150)
+
   }
 
 }
