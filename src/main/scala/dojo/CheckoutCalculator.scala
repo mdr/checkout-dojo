@@ -5,6 +5,7 @@ case object Apple extends Item
 case object Beans extends Item
 case object Coke extends Item
 case object Deodorant extends Item
+case object Egg extends Item
 
 object CheckoutCalculator {
 
