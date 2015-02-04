@@ -7,13 +7,21 @@ case object Coke extends Item { val cost: Int = 180 }
 case object Deodorant extends Item { val cost: Int = 250 }
 case object Egg extends Item { val cost: Int = 120 }
 
+case class Basket(items: Map[Item, Int])
+
 case class DiscountGroup(items: Map[Item, Int], discountAmount: Int) {
 
-  def applies(itemCounts: Map[Item, Int]): Boolean =
-    items.forall { case (item, count) ⇒ itemCounts.getOrElse(item, 0) >= count }
+  /**
+   * @return true iff this discount is applicable to the given basket
+   */
+  def applies(basket: Basket): Boolean =
+    items.forall { case (item, count) ⇒ basket.items.getOrElse(item, 0) >= count }
 
-  def apply(itemCounts: Map[Item, Int]): Map[Item, Int] =
-    itemCounts.map { case (item, count) ⇒ item -> (count - items.getOrElse(item, 0)) }
+  /**
+   * @return a new basket with all the discounted items removed
+   */
+  def apply(basket: Basket): Basket =
+    Basket(basket.items.map { case (item, count) ⇒ item -> (count - items.getOrElse(item, 0)) })
 
 }
 
@@ -32,15 +40,15 @@ object CheckoutCalculator {
     Seq(appleDiscount, deodorantDiscount, cokeBeanDiscount, eggDiscount)
   }
 
-  private def getDiscounts(itemCounts: Map[Item, Int]): Seq[DiscountGroup] = {
-    for (discount ← AllDiscounts if discount.applies(itemCounts))
-      return discount +: getDiscounts(discount.apply(itemCounts))
+  private def getDiscounts(basket: Basket): Seq[DiscountGroup] = {
+    for (discount ← AllDiscounts if discount.applies(basket))
+      return discount +: getDiscounts(discount.apply(basket))
     Seq() // No discounts
   }
 
   private def discount(items: Seq[Item]): Int = {
-    val itemCounts: Map[Item, Int] = items.groupBy(identity).mapValues(_.length)
-    getDiscounts(itemCounts).map(_.discountAmount).sum
+    val basket = Basket(items.groupBy(identity).mapValues(_.length))
+    getDiscounts(basket).map(_.discountAmount).sum
   }
 
 }
