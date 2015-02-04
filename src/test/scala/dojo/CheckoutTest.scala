@@ -6,7 +6,8 @@ import org.scalatest.matchers.ShouldMatchers
 class CheckoutTest extends FlatSpec with ShouldMatchers {
 
   "Checkout" should "work" in {
-    
+
+    42 should equal (42)
     
     
   }
