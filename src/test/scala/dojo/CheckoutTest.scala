@@ -11,7 +11,7 @@ import dojo.CheckoutCalculator._
 
 class CheckoutTest extends FlatSpec with ShouldMatchers {
 
-  "Checkout" should "work" in {
+  "Checkout a single item" should "give the correct total for just that item" in {
 
     total(Apple) should equal(30)
 
