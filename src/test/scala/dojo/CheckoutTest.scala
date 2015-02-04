@@ -16,5 +16,11 @@ class CheckoutTest extends FlatSpec with ShouldMatchers {
     total(Apple) should equal(30)
 
   }
+  
+  "Checkout two items" should "cost the correct amount" in {
+    
+    total(Apple, Beans) should equal(80)
+    
+  }
 
 }
