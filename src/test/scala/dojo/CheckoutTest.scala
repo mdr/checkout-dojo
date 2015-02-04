@@ -8,6 +8,7 @@ import dojo.CheckoutCalculator._
 // Beans £0.50   
 // Coke  £1.80
 // Deo   £2.50   2 for £4.50
+// Eggs  £1.20   3 for £3.00
 
 class CheckoutTest extends FlatSpec with ShouldMatchers {
 
@@ -41,15 +42,23 @@ class CheckoutTest extends FlatSpec with ShouldMatchers {
 
   }
 
+  "Checking out a Coke and a Bean" should "cost £2" in {
+
+    total(Coke, Beans) should equal(200)
+
+  }
+
   "Checking out a variety of items" should "charge the correct price" in {
 
     total(Deodorant, Deodorant, Apple, Deodorant, Deodorant,
-      Coke, Beans, Deodorant, Apple, Apple, Apple) should equal(1150 + 100 + 180 + 50)
+      Coke, Beans, Deodorant, Apple, Apple, Apple) should equal(1150 + 100 + 180 + 50 - 30)
 
   }
 
   "Checking out eggs" should "apply the egg discount" in {
+
     total(Egg, Egg, Egg, Egg) should equal(420)
+
   }
 
 }
