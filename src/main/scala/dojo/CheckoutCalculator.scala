@@ -25,6 +25,7 @@ object CheckoutCalculator {
     case Beans     ⇒ 1
     case Coke      ⇒ 1
     case Deodorant ⇒ 2
+    case Egg       => 3
   }
 
   def discountAmount(item: Item): Int = item match {
@@ -32,6 +33,7 @@ object CheckoutCalculator {
     case Beans     ⇒ 0
     case Coke      ⇒ 0
     case Deodorant ⇒ 50
+    case Egg       => 60
   }
 
   def rawPrice(item: Item): Int = item match {
@@ -39,6 +41,7 @@ object CheckoutCalculator {
     case Beans     ⇒ 50
     case Coke      ⇒ 180
     case Deodorant ⇒ 250
+    case Egg       => 120
   }
 
 }
