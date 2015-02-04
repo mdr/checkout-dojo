@@ -40,5 +40,12 @@ class CheckoutTest extends FlatSpec with ShouldMatchers {
     total(Deodorant, Deodorant, Deodorant, Deodorant, Deodorant) should equal(1150)
 
   }
+  
+  "Checking out a variety of items" should "charge the correct price" in {
+
+    total(Deodorant, Deodorant, Apple, Deodorant, Deodorant, 
+          Coke, Beans, Deodorant, Apple, Apple, Apple) should equal(1150 + 100 + 180 + 50)
+
+  }
 
 }
