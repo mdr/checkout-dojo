@@ -42,7 +42,7 @@ class CheckoutTest extends FlatSpec with ShouldMatchers {
 
   }
 
-  "Checking out a Coke and a Bean" should "cost £2" ignore {
+  "Checking out a Coke and a Bean" should "cost £2" in {
 
     total(Coke, Beans) should equal(200)
 
@@ -51,7 +51,7 @@ class CheckoutTest extends FlatSpec with ShouldMatchers {
   "Checking out a variety of items" should "charge the correct price" in {
 
     total(Deodorant, Deodorant, Apple, Deodorant, Deodorant,
-      Coke, Beans, Deodorant, Apple, Apple, Apple) should equal(1150 + 100 + 180 + 50 )
+      Coke, Beans, Deodorant, Apple, Apple, Apple) should equal(1150 + 100 + 180 + 50 - 30)
 
   }
 
