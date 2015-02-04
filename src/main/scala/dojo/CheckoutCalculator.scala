@@ -39,8 +39,6 @@ case class DiscountGroup(items: Map[Item, Int], discountAmount: Int) {
 }
 
 object CheckoutCalculator {
-
-  import Data._
   
   /**
    * Calculate total checkout price for a collection of items
@@ -48,7 +46,7 @@ object CheckoutCalculator {
   def total(items: Item*): Int = items.map(_.cost).sum - discount(items)
 
   private def getDiscounts(basket: Basket): Seq[DiscountGroup] = {
-    for (discount ← AllDiscounts if discount.applies(basket))
+    for (discount ← Data.AllDiscounts if discount.applies(basket))
       return discount +: getDiscounts(discount.apply(basket))
     Seq() // No discounts
   }
